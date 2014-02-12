@@ -17,12 +17,19 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class NewsUtil extends AsyncTask<Integer, Void, CategoryNews>{
+    /***
+     * 根据ID，获取新闻数据
+     * @param categoryID
+     * @return
+     */
     public static CategoryNews GetNewsByCategory(int categoryID) {
+
         CategoryNews newsList = new CategoryNews();
         String raw = null;
         try {
             raw = WebUtil.HttpGet("http://www.wssummary.net/mobile.php?postType=3&categoryId="+categoryID);
-        } catch (IOException e) {}
+        }
+        catch (IOException e) { }
 
         if(raw != null) {
             Gson gson = new Gson();

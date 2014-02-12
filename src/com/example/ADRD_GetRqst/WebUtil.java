@@ -16,19 +16,20 @@ import java.io.InputStream;
  * To change this template use File | Settings | File Templates.
  */
 public class WebUtil {
+    /***
+     * 发送get请求获取数据
+     * @param url 请求链接
+     * @return 数据
+     * @throws IOException
+     */
     public static String HttpGet(String url) throws IOException {
-        //新建一个默认的连接
+
         DefaultHttpClient client = new DefaultHttpClient();
-        //新建一个Get方法
         HttpGet get = new HttpGet(url);
-        //得到网络的回应
         HttpResponse response = client.execute(get);
-        //获得的网页源代码（xml）
         String content = null;
 
-        //如果服务器响应的是OK的话！
         if (response.getStatusLine().getStatusCode() == 200) {
-            //以下是把网络数据分段读取下来的过程
             InputStream in = response.getEntity().getContent();
             byte[] data = new byte[1024];
             int length = 0;
@@ -36,10 +37,8 @@ public class WebUtil {
             while ((length = in.read(data)) != -1) {
                 bout.write(data, 0, length);
             }
-            //最后把字节流转为字符串 转换的编码为utf-8.
             content = new String(bout.toByteArray(), "utf-8");
         }
-        //返回得到的字符串 也就是网页源代码
         return content;
     }
 }
